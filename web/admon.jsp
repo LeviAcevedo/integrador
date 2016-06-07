@@ -20,7 +20,8 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <!-- Bootstrap Core CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
@@ -69,7 +70,10 @@
                         </li>
                         <li>
                             <a class="page-scroll" href="#enfermedades">Enfermedades</a>
-                        </li> 
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#causas">Causas</a>
+                        </li>
                         <li>
                             <a class="page-scroll" href="#sintomas">Sintomas</a>
                         </li>
@@ -87,12 +91,12 @@
                         </li>
                         <li>
                             <div class="dropdown">
-                                <button class="btn btn-primary btn-lg" id="menu1" type="button" data-toggle="dropdown" >Perfil
+                                <button class="btn btn-primary btn-lg" id="menu1" type="button" data-toggle="dropdown">Perfil
                                     <span class="caret"></span></button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="index.jsp">Cerrar sesión</a></li>    
-                                </ul>
-                            </div>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                      <li role="presentation"><a role="menuitem" tabindex="-1" href="index.jsp">Cerrar sesión</a></li>
+                                    </ul>
+                              </div>
                         </li>
                     </ul>
                     <br>
@@ -257,8 +261,114 @@
             </section>
         </aside>
 
-        <!--SINTOMAS-->
+        <!--CAUSAS-->
 
+        <section id="causas">
+            <div class="container">
+                <h2>Causas</h2>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#agregarCa">Agregar</a></li>
+                    <li><a href="#verCa">Ver</a></li>
+                    <li><a href="#editarCa">Editar</a></li>
+                </ul>
+
+                <!--agregar-->
+                <div class="tab-content">
+                    <div id="agregarCa" class="tab-pane fade in active">
+                        <form action="agregarcausa" method="POST">
+                        <h4>Categoria a la que pertenece:</h4>
+                        <%
+                                out.print(conn.listarCat());
+                        %>
+                        <h4>Enfermedad a la que pertenece:</h4>
+                        <%
+                                if(request.getParameter("id") != null){
+                                    String id = request.getParameter("id");
+                                    out.print(conn.listarEnfe(id));
+                                }      
+                        %>
+                        
+                        <h4>Causa:</h4>
+                        <textarea name="detalle" class="form-control" rows="3"></textarea>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                        <button type="button" class="btn btn-primary">Cancelar</button>
+                        </form>
+                    </div>
+
+                    <!--ver-->
+                    <div id="verCa" class="tab-pane fade">
+                        <h4>Busqueda por enfermedad:</h4>
+                            <table>
+                                <tr>
+                                    <td>
+                            <input type="text" name="enfermedad" class="form-control" placeholder="Nombre de enfermedad">
+                                    </td>
+                                    <td>
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br>
+                        <table class="table table-condensed">
+                            <%
+                                out.print(conn.listarSintoma());
+                            %>
+                        </table>
+                    </div>
+
+                    <!--editar-->
+                    <div id="editarCa" class="tab-pane fade">
+                        <div id="agregarc" class="tab-pane fade in active">
+                            <h4>Categoria a la que pertenece:</h4>
+                            <select multiple class="form-control">
+                                <option>categoria 1</option>
+                                <option>categoria 2</option>
+                                <option>categoria 3</option>
+                                <option>categoria 4</option>
+                                <option>categoria 5</option>
+                                <option>categoria 6</option>
+                                <option>categoria 7</option>
+                                <option>categoria 8</option>
+                                <option>categoria 9</option>
+                                <option>categoria 10</option>
+                            </select>
+                            <h4>Enfermedad a la que pertenece:</h4>
+                            <select multiple class="form-control">
+                                <option>categoria 1</option>
+                                <option>categoria 2</option>
+                                <option>categoria 3</option>
+                                <option>categoria 4</option>
+                                <option>categoria 5</option>
+                                <option>categoria 6</option>
+                                <option>categoria 7</option>
+                                <option>categoria 8</option>
+                                <option>categoria 9</option>
+                                <option>categoria 10</option>
+                            </select>
+                            <h4>Causa:</h4>
+                            <textarea class="form-control" rows="3"></textarea>
+                            <br>
+                            <button type="button" class="btn btn-primary">Guardar cambios</button>
+                            <button type="button" class="btn btn-primary">Cancelar</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    $(document).ready(function () {
+                        $(".nav-tabs a").click(function () {
+                            $(this).tab('show');
+                        });
+                    });
+                </script>
+        </section>
+
+                            
+        <!--SINTOMAS-->
+        
+        <aside class="bg-info">
         <section id="sintomas">
             <div class="container">
                 <h2>Sintomas</h2>
@@ -364,11 +474,10 @@
                     });
                 </script>
         </section>
-
+        </aside>
 
         <!--CONSECUENCIAS-->
 
-        <aside class="bg-info">
             <section id="consecuencias">
                 <div class="container">
                     <h2>Consecuencias</h2>
@@ -496,10 +605,11 @@
                     });
                 </script>
             </section>
-        </aside>
+
 
         <!--ACCIDENTES-->
 
+        <aside class="bg-info">
         <section id="accidentes">
             <div class="container">
                 <h2>Accidentes</h2>
@@ -590,11 +700,11 @@
                         });
                     </script>
                     </section>
+                </aside>
 
 
                     <!--VIDEOS-->
 
-                    <aside class="bg-info">
                         <section id="videos">
                             <div class="container">
                                 <h2>Videos</h2>
@@ -657,11 +767,11 @@
                                 });
                             </script>
                         </section>
-                    </aside>
+ 
 
                     <!--USUARIOS-->
 
-
+                    <aside class="bg-info">
                     <section id="usuarios">
                         <div class="container">
                             <h2>Usuarios</h2>
@@ -779,9 +889,10 @@
                                 });
                             });
                         </script>
-
                     </section>
-
+                    </aside>                        
+                        
+                        
                     <!-- jQuery -->
                     <script src="js/jquery.js"></script>
 
@@ -801,4 +912,4 @@
                     <script src="//cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/4.0.1/ekko-lightbox.min.js"></script>
 
                     </body>
-                    </html>
+</html>

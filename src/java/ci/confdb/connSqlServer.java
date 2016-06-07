@@ -17,7 +17,7 @@ import java.sql.SQLException;
  */
 public class connSqlServer {
     public Connection con = null;
-    public String url = "jdbc:sqlserver://192.168.56.103:1433;databaseName=jahmmedicalservice1;user=sa;password=leviacevedo";
+    public String url = "jdbc:sqlserver://WIN-MX8ST98MLO7:1433;databaseName=jahmmedicalservice1;user=sa;password=leviacevedo";
     public String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     public Statement st = null;
     
